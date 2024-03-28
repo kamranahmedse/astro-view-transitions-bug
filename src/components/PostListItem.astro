@@ -1,0 +1,31 @@
+---
+import { type Post } from '../lib/post';
+
+export interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<a
+  href={post.frontmatter.externalUrl
+    ? post.frontmatter.externalUrl
+    : `/posts/${post.slug}`}
+  target={post.frontmatter.externalUrl ? '_blank' : '_self'}
+  class='group flex flex-col flex-wrap items-start text-balance text-lg font-medium text-white hover:text-yellow-400 sm:flex-row sm:items-center'
+>
+      <span class='mr-2 hidden h-1.5 w-1.5 bg-white transition-all group-hover:h-5 group-hover:bg-yellow-400 sm:block' />
+  <span
+    class='mr-1.5 flex-shrink-0 underline decoration-2 underline-offset-2 transition-colors'
+  >
+    {post.frontmatter.title}
+  </span>
+  {
+    ['textual', 'video'].includes(post.frontmatter.type) && (
+      <span class='text-sm text-zinc-500 sm:text-lg font-normal'>
+        February 4, 2024
+      </span>
+    )
+  }
+</a>

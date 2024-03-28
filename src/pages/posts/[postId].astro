@@ -1,0 +1,47 @@
+---
+import { getAllPosts, type PostFrontmatter } from '../../lib/post';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+
+  return posts.map((post) => ({
+    params: {
+      postId: post.slug,
+    },
+    props: {
+      post: post,
+    },
+  }));
+}
+
+const { post } = Astro.props;
+
+const postData = post.frontmatter as PostFrontmatter;
+---
+
+<Layout title={postData?.seo?.title} description={postData?.seo?.description}>
+  <div class='container'>
+    <div class='mb-6 mt-12'>
+      <div class="mb-3 text-sm text-yellow-300">
+        <a href="/">
+          &larr; Back to All Posts
+        </a>
+      </div>
+      <h1
+        class='mb-2 text-balance text-3xl font-bold leading-tight text-neutral-100'
+      >
+        {postData.title}
+      </h1>
+      <p class='text-base text-neutral-400'>
+        February 4, 2024
+      </p>
+    </div>
+
+    <div
+      class='prose prose-img:bg-white prose-img:px-2 prose-img:py-2 prose-img:rounded-md prose-lg prose-quoteless prose-blockquote:text-zinc-300 prose-blockquote:border-l-8 prose-blockquote:border-l-current prose-blockquote:font-normal prose-neutral-300 prose-h3:text-neutral-100 prose-h4:text-neutral-100 prose-h2:text-neutral-100 prose-code:font-normal prose-code:before:hidden prose-code:after:hidden prose-a:text-blue-300 prose-code:text-yellow-200 prose-strong:text-white prose-h1:text-balance prose-h2:text-balance prose-h3:text-balance prose-h4:text-balance prose-h5:text-balance leading-relaxed text-neutral-300'
+    >
+      <post.Content />
+    </div>
+  </div>
+</Layout>

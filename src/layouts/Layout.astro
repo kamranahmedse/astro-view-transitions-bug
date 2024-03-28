@@ -1,0 +1,97 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+const EASE_IN_OUT_QUART = 'cubic-bezier(0.76, 0, 0.24, 1)';
+
+const myFade = {
+  forwards: {
+    old: [
+      {
+        name: 'astroFadeOut',
+        duration: '100ms',
+        easing: EASE_IN_OUT_QUART,
+        fillMode: 'both',
+      },
+    ],
+    new: [
+      {
+        name: 'astroFadeIn',
+        duration: '240ms',
+        easing: EASE_IN_OUT_QUART,
+        delay: '30ms',
+        fillMode: 'both',
+      },
+      {
+        name: 'astroSlideFromBottom',
+        duration: '220ms',
+        easing: EASE_IN_OUT_QUART,
+        fillMode: 'both',
+      },
+    ],
+  },
+  backwards: {
+    old: [{name: 'astroFadeOut'}, {name: 'astroSlideFromBottom'}],
+    new: [{name: 'astroFadeIn'}, {name: 'astroSlideFromBottom'}],
+  },
+};
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const pagePath = Astro.url.pathname;
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content={description} />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+
+    <title>{title}</title>
+    <meta name='description' content={description} />
+
+    <style is:global>
+      @keyframes fade-appear {
+        from {
+          @apply rounded-lg bg-gray-700 text-yellow-100;
+        }
+        to {
+        }
+      }
+
+      @keyframes slide-fade-up-in {
+        0% {
+          opacity: 0;
+          transform: translateY(0.5rem);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      [data-rmiz-modal-content] {
+        @apply bg-zinc-900 text-gray-100;
+      }
+
+      ::selection {
+        @apply bg-yellow-400 text-yellow-900;
+      }
+    </style>
+    <ViewTransitions />
+  </head>
+  <body class='bg-zinc-900 text-zinc-400'>
+    <div
+      class='mx-auto max-w-[750px] px-4 pb-20 pt-6 text-lg sm:px-12 md:px-16'
+    >
+      <div transition:animate={myFade}>
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>

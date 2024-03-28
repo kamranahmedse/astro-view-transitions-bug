@@ -1,0 +1,39 @@
+{
+  "name": "kamranahmed.info",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "default_build": "astro build",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/react": "^3.1.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/react": "^18.2.69",
+    "@types/react-dom": "^18.2.22",
+    "astro": "^4.5.9",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.363.0",
+    "luxon": "^3.4.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-medium-image-zoom": "^5.1.10",
+    "react-rough-notation": "^1.0.5",
+    "react-social-icons": "^6.15.0",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.4.2",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0",
+    "prettier-plugin-tailwindcss": "^0.5.12"
+  }
+}
